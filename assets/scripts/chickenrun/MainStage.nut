@@ -276,30 +276,30 @@ class MainStage extends imo.AbstractStage {
     function loadBuildings(floats) {
         for (local i = 0; i < BuildingsDispositionArray.len(); i++) {
             local builddef = BuildingsDispositionArray[i];
-            appendBuilding(floats, builddef.name, builddef.positionX);
+            appendBuilding(floats, builddef.name, builddef.positionX, builddef.positionY);
         }
     }
     
     function loadHouses(floats) {
         for (local i = 0; i < HousesDispositionArray.len(); i++) {
             local builddef = HousesDispositionArray[i];
-            appendHouse(floats, builddef.name, builddef.positionX);
+            appendHouse(floats, builddef.name, builddef.positionX, builddef.positionY);
         }
     }
     
-    function appendBuilding(floats, name, x) {
-        appendBackground(floats, "building", name, x);
+    function appendBuilding(floats, name, x, y = 0) {
+        appendBackground(floats, "building", name, x, y);
     }
     
-    function appendHouse(floats, name, x) {
-        appendBackground(floats, "house", name, x);
+    function appendHouse(floats, name, x, y = 0) {
+        appendBackground(floats, "house", name, x, y);
     }
     
-    function appendBackground(floats, type, name, x) {
+    function appendBackground(floats, type, name, x, y = 0) {
         local zBgs = Z_BGS + (type == "building" ? 1000 : type == "house" ? 2000 : 0);
         local distance = type == "building" ? 80 : type == "house" ? 0 : 0;
         local bgElem = emo.Sprite(name);
-        bgElem.move(x, ground.getY() - bgElem.getHeight());
+        bgElem.move(x, ground.getY() - bgElem.getHeight() - y);
         bgElem.setZ(zBgs);
         bgElem.setAsBackground(true);
         bgElem.distance = distance;
@@ -399,6 +399,17 @@ class MainStage extends imo.AbstractStage {
             default:
             break;
         }
+    }
+    
+    function onContact(state, fixtureA, fixtureB, position, normal, normalImpulse, tangentImpulse) {
+        print("state: " + state);
+        print("fixtureA: " + fixtureA);
+        print("fixtureB: " + fixtureB);
+        print("position: " + position);
+        print("normal: " + normal);
+        print("normalImpulse: " + normalImpulse);
+        print("tangentImpulse: " + tangentImpulse);
+        
     }
     
     function countDown() {
