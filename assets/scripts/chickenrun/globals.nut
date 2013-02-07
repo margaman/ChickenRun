@@ -8,4 +8,6 @@ Z_ELEMS <- 10000;
 Z_GUIS <- 20000;
 
 emo.Runtime.import("chickenrun/AssetsDef.nut");
+emo.Runtime.import("chickenrun/DispositionDef.nut");
 emo.Runtime.import("chickenrun/Disposition.nut");
+emo.Runtime.import("chickenrun/MainStage.nut");
